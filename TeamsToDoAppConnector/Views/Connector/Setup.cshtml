@@ -1,14 +1,69 @@
 ﻿@{
     Layout = "";
 }
-<H2>Register your channel for Task Notification</H2>
-<p>
-    Click the button to call the "register" endpoint in the sample app, which will register the connector for the selected channel.
-</p>
-<a href="https://outlook.office.com/connectors/Connect?state=State_Info_To_Preserve&app_id=@(TeamsToDoAppConnector.Utils.AppSettings.ConnectorAppId)&callback_url=@(TeamsToDoAppConnector.Utils.AppSettings.BaseUrl)/connector/register">
-    <img src="https://o365connectors.blob.core.windows.net/images/ConnectToO365Button.png" alt="Register The Channel" />
-</a>
+<h2>Please select options for which you need notifications</h2>
+<div class="col-md-8">
+    <section id="configSection">
+        <form id="configForm">
+            <input type="radio" name="notificationType" value="Create" onclick="onClick()"> Create Task
+            <br>
+            <br>
+            <input type="radio" name="notificationType" value="Update" onclick="onClick()"> Update Task
+        </form>
+    </section>
+</div>
 
+<script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
 
+<script type="text/javascript">
 
+        function onClick() {
+            microsoftTeams.settings.setValidityState(true);
+        }
 
+        microsoftTeams.initialize();
+        microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
+            var radios = document.getElementsByName('notificationType');
+
+            var eventType = '';
+            if (radios[0].checked) {
+                eventType = radios[0].value;
+            } else {
+                eventType = radios[1].value;
+            }
+
+            microsoftTeams.settings.setSettings({
+                 entityId: eventType,
+                    contentUrl: "@(TeamsToDoAppConnector.Utils.AppSettings.BaseUrl)/Connector/Setup",
+                 configName: eventType
+                });
+
+            microsoftTeams.settings.getSettings(function (settings) {
+
+                // We get the Webhook URL in settings.webhookUrl which needs to be saved.
+                $.ajax({
+                    url: '/Connector/Save',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        webhookUrl: settings.webhookUrl,
+                        eventType: eventType
+                    }),
+                    success: function (data, textStatus, jQxhr) {
+                        console.log('webhook created successfully.');
+                    },
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log('error', errorThrown);
+                    }
+                });
+            });
+
+            saveEvent.notifySuccess();
+        });
+
+        microsoftTeams.settings.registerOnRemoveHandler(function (removeEvent) {
+            var removeCalled = true;
+        });
+
+</script>
