@@ -40,7 +40,7 @@ namespace TeamsToDoAppConnector.Controllers
             // Loop through subscriptions and notify each channel that task is created.
             foreach (var sub in SubscriptionRepository.Subscriptions)
             {
-                await TaskHelper.PostTaskCreatedNotification(sub.WebHookUri, item);
+                await TaskHelper.PostTaskNotification(sub.WebHookUri, item, "Created");
             }
 
             return RedirectToAction("Detail", new { id = item.Guid });
@@ -55,12 +55,12 @@ namespace TeamsToDoAppConnector.Controllers
 
         [Route("task/update")]
         [HttpPost]
-        public void Update([System.Web.Http.FromBody]Request request, string id)
+        public async Task Update([System.Web.Http.FromBody]Request request, string id)
         {
             var task = TaskRepository.Tasks.First(t => t.Guid == id);
             task.Title = request.Title;
 
-            string json = TaskHelper.GetConnectorCardJson(task);
+            string json = TaskHelper.GetConnectorCardJson(task, "Updated");
 
             Response.Clear();
             Response.ContentType = "application/json; charset=utf-8";
@@ -68,6 +68,12 @@ namespace TeamsToDoAppConnector.Controllers
             Response.Headers.Add("CARD-UPDATE-IN-BODY", "true");
             Response.Write(json);
             Response.End();
+
+            // Send Task updated notification to all Subscriptions.
+            foreach (var sub in SubscriptionRepository.Subscriptions.Where(s => s.EventType == EventType.Update))
+            {
+                await TaskHelper.PostTaskNotification(sub.WebHookUri, task, "Updated");
+            }
         }
     }
 }

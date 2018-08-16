@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TeamsToDoAppConnector.Models;
@@ -22,31 +23,37 @@ namespace TeamsToDoAppConnector.Controllers
         }
 
         /// <summary>
-        /// This enpoint is called when registration is completed. 
-        /// This contains GroupName and Webhook Url which can be used to push change notifications to the channel.
+        /// This enpoint is called when we need to save the webhook details.
+        /// This contains Webhook Url and event type which can be used to push change notifications to the channel.
         /// </summary>
         /// <returns></returns>
-        public async Task<ActionResult> Register()
+        public async Task<ActionResult> Save(WebhookDetails webhookInfo)
         {
-            var error = Request["error"];
-            var state = Request["state"];
-            if (!String.IsNullOrEmpty(error))
+            if (webhookInfo == null || webhookInfo.WebhookUrl == null)
             {
                 return RedirectToAction("Error"); // You could pass error message to Error Action. 
             }
             else
             {
-                var group = Request["group_name"];
-                var webhook = Request["webhook_url"];
+                var subscription = SubscriptionRepository.Subscriptions.Where(sub => sub.WebHookUri == webhookInfo.WebhookUrl).FirstOrDefault();
+                if (subscription == null)
+                {
+                    Subscription newSubscription = new Subscription
+                    {
+                        WebHookUri = webhookInfo.WebhookUrl,
+                        EventType = webhookInfo.EventType
+                    };
 
-                Subscription subscription = new Subscription();
-                subscription.GroupName = group;
-                subscription.WebHookUri = webhook;
+                    // Save the subscription so that it can be used to push data to the registered channels.
+                    SubscriptionRepository.Subscriptions.Add(newSubscription);
+                }
+                else
+                {
+                    // Update existing
+                    subscription.EventType = webhookInfo.EventType;
+                }
 
-                // Save the subscription so that it can be used to push data to the registered channels.
-                SubscriptionRepository.Subscriptions.Add(subscription);
-
-                await TaskHelper.PostWelcomeMessage(webhook, group);
+                await TaskHelper.PostWelcomeMessage(webhookInfo.WebhookUrl);
 
                 return View();
             }

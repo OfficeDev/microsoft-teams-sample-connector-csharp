@@ -22,22 +22,22 @@ namespace TeamsToDoAppConnector.Utils
             };
         }
 
-        public static async Task PostTaskCreatedNotification(string webhook, TaskItem item)
+        public static async Task PostTaskNotification(string webhook, TaskItem item, string title)
         {
-            string cardJson = GetConnectorCardJson(item);
+            string cardJson = GetConnectorCardJson(item, title);
             await PostCardAsync(webhook, cardJson);
         }
 
-        public static async Task PostWelcomeMessage(string webhook, string channelName)
+        public static async Task PostWelcomeMessage(string webhookUrl)
         {
             string cardJson = @"{
             ""@type"": ""MessageCard"",
             ""summary"": ""Welcome Message"",
             ""sections"": [{ 
                 ""activityTitle"": ""Welcome Message"",
-                ""text"": ""Teams ToDo connector has been set up. We will send you notification whenever new task is added.""}]}";
+                ""text"": ""Teams ToDo connector has been set up. We will send you notification whenever new task is added in [Task Manager Portal]("+AppSettings.BaseUrl+ @" ).""}]}";
 
-            await PostCardAsync(webhook, cardJson);
+            await PostCardAsync(webhookUrl, cardJson);
         }
 
         private static async Task PostCardAsync(string webhook, string cardJson)
@@ -52,7 +52,7 @@ namespace TeamsToDoAppConnector.Utils
             }
         }
 
-        public static string GetConnectorCardJson(TaskItem task)
+        public static string GetConnectorCardJson(TaskItem task, string title)
         {
             //prepare the json payload
             return @"
@@ -60,7 +60,7 @@ namespace TeamsToDoAppConnector.Utils
                     'summary': 'A task is added.',
                     'sections': [
                         {
-                            'activityTitle': 'New Task Craeted!',
+                            'activityTitle': 'Task "+ title + @"!',
                             'facts': [
                                 {
                                     'name': 'Title:',
