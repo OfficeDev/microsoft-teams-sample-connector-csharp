@@ -1,19 +1,19 @@
 ﻿@{
     Layout = "";
 }
-<h2>Please select options for which you need notifications</h2>
+<h2>Send notifications when tasks are:</h2>
 <div class="col-md-8">
     <section id="configSection">
         <form id="configForm">
-            <input type="radio" name="notificationType" value="Create" onclick="onClick()"> Create Task
+            <input type="radio" name="notificationType" value="Create" onclick="onClick()"> Created
             <br>
             <br>
-            <input type="radio" name="notificationType" value="Update" onclick="onClick()"> Update Task
+            <input type="radio" name="notificationType" value="Update" onclick="onClick()"> Updated
         </form>
     </section>
 </div>
 
-<script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js"></script>
+<script src="https://unpkg.com/@microsoft/teams-js@1.3.3/dist/MicrosoftTeams.min.js"></script>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">
