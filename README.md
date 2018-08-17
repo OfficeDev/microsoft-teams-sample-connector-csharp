@@ -20,7 +20,7 @@ The minimum prerequisites to run this sample are:
 >**Note**: some features in the sample require that you using [Public Developer Preview mode](https://docs.microsoft.com/en-us/microsoftteams/platform/resources/dev-preview/developer-preview-intro) in Microsoft Teams.
 
 ### How to see the connector working in Microsoft Teams
-1) [Upload your custom app in Microsoft Teams](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/apps/apps-upload) using [this manifest file](manifest.json).
+1) [Upload your custom app in Microsoft Teams](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/apps/apps-upload) using [this manifest file](TeamsToDoAppConnector/TeamsAppPackages/manifest.json).
 2) Configure the [Teams ToDo Notification](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors#accessing-office-365-connectors-from-microsoft-teams) connector.
 3) Select either Create or Update on the registration page and click Save. 
 4) Once the connector is configured, you will get a notification in channel with link to the Task Manager application.
@@ -35,17 +35,17 @@ The sample shows a simple implementation of a connector registration implementat
 
 1. Open the TeamsToDoAppConnector.sln solution with Visual Studio.
 1. Begin your tunnelling service to get an https endpoint. 
-  1. Open a new command prompt window. 
-  1. Change to the directory that contains the ngrok.exe application. 
-  1. In the command prompt, run the command `ngrok http [port] --host-header=localhost`.
-  1. Ngrok will fill the entire prompt window. Make note of the https:// Forwarding URL. This URL will be your [BASE_URI] referenced below. 
-  1. Minimize the ngrok Command Prompt window. It is no longer referenced in these instructions, but it must remain running.
+   1. Open a new command prompt window. 
+   1. Change to the directory that contains the ngrok.exe application. 
+   1. In the command prompt, run the command `ngrok http [port] --host-header=localhost`.
+   1. Ngrok will fill the entire prompt window. Make note of the https:// Forwarding URL. This URL will be your [BASE_URI] referenced below. 
+   1. Minimize the ngrok Command Prompt window. It is no longer referenced in these instructions, but it must remain running.
 1. Register a new connector in the [Connector Developer Portal](https://outlook.office.com/connectors/home/login/#/new)
-  1. Fill in all the basic details such as name, logo, descriptions etc. for the new connector.
-  1. For the configuration page, you'll use our sample code's setup endpoint: `https://[BASE_URI]/connector/setup`
-  1. For Valid domains, make enter your domain's http or https URL, e.g. XXXXXXXX.ngrok.io.
-  1. Enable the action on connector card by selecting the Yes radio button and enter the update endpoint: `https://[BASE_URI]/Task/Update`
-  1. Click on Save. After the save completes, you will see your connector id.
+   1. Fill in all the basic details such as name, logo, descriptions etc. for the new connector.
+   1. For the configuration page, you'll use our sample code's setup endpoint: `https://[BASE_URI]/connector/setup`
+   1. For Valid domains, make enter your domain's http or https URL, e.g. XXXXXXXX.ngrok.io.
+   1. Enable the action on connector card by selecting the Yes radio button and enter the update endpoint: `https://[BASE_URI]/Task/Update`
+   1. Click on Save. After the save completes, you will see your connector id.
 1. In the Web.config file, set the `configuration.appSettings.Base_Uri` variable to the ngrok https forwarding url from the above.
 1. In Visual Studio, click the play button. 
 1. Now you can sideload your app package and test your new connector.
