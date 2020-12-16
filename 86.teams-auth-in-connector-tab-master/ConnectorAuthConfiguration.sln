@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectorAuthConfiguration", "ConnectorAuthConfiguration\ConnectorAuthConfiguration.csproj", "{22C8BD94-DE6C-4073-BAC2-04722A57C756}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22C8BD94-DE6C-4073-BAC2-04722A57C756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22C8BD94-DE6C-4073-BAC2-04722A57C756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22C8BD94-DE6C-4073-BAC2-04722A57C756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22C8BD94-DE6C-4073-BAC2-04722A57C756}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC7D9EE0-C0F4-4947-9F4A-5E7DB8A65F87}
+	EndGlobalSection
+EndGlobal
