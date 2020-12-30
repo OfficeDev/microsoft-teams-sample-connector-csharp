@@ -9,7 +9,7 @@ extensions:
   contentType: samples
   technologies:
   - Connectors
-  createdDate: 1/16/2018 10:21:42 PM
+  createdDate: 10/10/2020 10:21:42 PM
 ---
 
 # Microsoft Teams Sample Connector in .NET/C#
@@ -23,7 +23,7 @@ The main connector code is found here:
 This application simulates a real task management system and allows users to create and view tasks. The content is randomly generated to simulate how notification can be sent into Microsoft Teams channel using connector.
 
 **For more information on developing apps for Microsoft Teams, please review the Microsoft Teams [developer documentation](https://docs.microsoft.com/en-us/microsoftteams/platform/overview).**
-
+n 
 ## Prerequisites
 The minimum prerequisites to run this sample are:
 * The latest update of Visual Studio. You can download the community version [here](http://www.visualstudio.com) for free.
@@ -34,7 +34,7 @@ The minimum prerequisites to run this sample are:
 
 ### How to see the connector working in Microsoft Teams
 1) [Upload your custom app in Microsoft Teams](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/apps/apps-upload) using [this manifest file](TeamsToDoAppConnector/TeamsAppPackages/manifest.json).
-2) Configure the [Teams ToDo Notification](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors#accessing-office-365-connectors-from-microsoft-teams) connector.
+2) Configure the [TeamsToDoAppConnector](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/connectors#accessing-office-365-connectors-from-microsoft-teams) connector.
 3) Select either Create or Update on the registration page and click Save. 
 4) Once the connector is configured, you will get a notification in channel with link to the Task Manager application.
 5) Go to Task Manager portal and click on Create New and enter the task details and Save.
@@ -46,7 +46,7 @@ The minimum prerequisites to run this sample are:
 ### Configure your own connector
 The sample shows a simple implementation of a connector registration implementation. It also sends a connector card to the registered connector via a process triggered "externally."
 
-1. Open the TeamsToDoAppConnector.sln solution with Visual Studio.
+1. Open the TeamsToDoAppConnectorAuthentication.sln solution with Visual Studio.
 1. Begin your tunnelling service to get an https endpoint. 
    1. Open a new command prompt window. 
    1. Change to the directory that contains the ngrok.exe application. 
@@ -63,9 +63,83 @@ The sample shows a simple implementation of a connector registration implementat
 1. In Visual Studio, click the play button. 
 1. Now you can sideload your app package and test your new connector.
 
+## Setup
+
+To be able to use an identity provider, first you have to register your application.
+
+### [Using Azure AD](#using-azure-ad)
+
+1. Go to the [Application Registration Portal](https://aka.ms/appregistrations) and sign in with the your account to create an application.
+1. Navigate to **Authentication** under **Manage** and add the following redirect URLs:
+
+    - `https://<your_ngrok_url>/Connector/SimpleEnd`
+
+1. Additionally, under the **Implicit grant** subsection select **Access tokens** and **ID tokens**
+
+1. Click on **Expose an API** under **Manage**. Select the Set link to generate the Application ID URI in the form of api://{AppID}. Insert your fully qualified domain name (with a forward slash "/" appended to the end) between the double forward slashes and the GUID. The entire ID should have the form of: api://<your_ngrok_url>/{AppID}
+
+1. Navigate to **API Permissions**, and make sure to add the following delegated permissions:
+    - User.Read
+    - email
+    - offline_access
+    - openid
+    - profile
+1. Scroll to the bottom of the page and click on "Add Permissions".
+
+
+## Setting up Authentication on Configuration page 
+
+1. Set the Config URL in Setup.cshtml
+
+```javascript
+  microsoftTeams.settings.setSettings({
+            entityId: eventType,
+            contentUrl: "***YOUR CONFIG URL HERE***",
+            configName: eventType
+        });
+```
+
+2. Enter your AppId in the `client_id` property in SimpleStart.html page 
+
+```javascript
+ let queryParams = {
+                    client_id: "***YOUR CLIENT ID HERE***",
+                    response_type: "id_token token",
+                    response_mode: "fragment",
+                    resource: "https://graph.microsoft.com/",
+                    redirect_uri: window.location.origin + "/Connector/SimpleEnd",
+                    nonce: _guid(),
+                    state: state,
+                    login_hint: context.loginHint,
+                };
+```
+
+
+### Update your Microsoft Teams application manifest
+
+
+1. Add permissions and update validDomains to allow token endpoint used by bot framework. Teams will only show the sign-in popup if its from a whitelisted domain.
+
+    ```json
+    "permissions": [
+        "identity"
+    ],
+    "validDomains": [
+        "<<BASE_URI_DOMAIN>>",
+    ],
+    ```
+
+Notes:
+
+-   The resource for an AAD app will usually just be the root of its site URL and the appID (e.g. api://subdomain.example.com/6789/c6c1f32b-5e55-4997-881a-753cc1d563b7). We also use this value to ensure your request is coming from the same domain. Therefore make sure that your contentURL for your tab uses the same domains as your resource property.
+-   You need to be using manifest version 1.5 or higher for these fields to be used.
+-   Scopes aren’t supported in the manifest and instead should be specified in the API Permissions section in the Azure portal
+
+
+
 ## More Information
 For more information about getting started with Teams, please review the following resources:
+- Review [Getting Started with Authentications for Tabs](https://docs.microsoft.com/en-us/microsoftteams/platform/tabs/how-to/authentication/auth-tab-aad)
 - Review [Getting Started with Teams](https://msdn.microsoft.com/en-us/microsoft-teams/setup)
-- Review [Getting Started with Bot Framework](https://docs.microsoft.com/en-us/bot-framework/bot-builder-overview-getstarted)
-- Review [Testing your bot with Teams](https://msdn.microsoft.com/en-us/microsoft-teams/botsadd)
+
 
