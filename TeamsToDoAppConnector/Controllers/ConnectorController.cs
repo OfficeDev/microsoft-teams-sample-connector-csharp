@@ -64,5 +64,37 @@ namespace TeamsToDoAppConnector.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult SimpleStart()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SimpleEnd()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ViewResult SetupAuth()
+        {
+            return View();
+        }
+
+        [HttpGet]
+
+        public ViewResult MainSetup() {
+
+            return View();
+        }
     }
 }
+

@@ -56,13 +56,13 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -186,6 +186,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="TeamsAppPackages\color_icon.png" />
     <Content Include="TeamsAppPackages\outline_icon.png" />
+    <None Include="Views\Connector\Logout.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -200,11 +201,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Connector\Error.cshtml" />
     <Content Include="Views\Connector\Register.cshtml" />
-    <Content Include="Views\Connector\Setup.cshtml" />
+    <Content Include="Views\Connector\SetupAuth.cshtml" />
     <Content Include="Views\Task\Create.cshtml" />
     <Content Include="Views\Task\Detail.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="TeamsAppPackages\manifest.json" />
+    <Content Include="Views\Connector\SimpleEnd.cshtml" />
+    <Content Include="Views\Connector\SimpleStart.cshtml" />
+    <Content Include="Views\Connector\Setup.cshtml" />
+    <Content Include="Views\Connector\MainSetup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
