@@ -83,7 +83,18 @@ namespace TeamsToDoAppConnector.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ViewResult SetupAuth()
+        {
+            return View();
+        }
 
+        [HttpGet]
+
+        public ViewResult MainSetup() {
+
+            return View();
+        }
     }
 }
 

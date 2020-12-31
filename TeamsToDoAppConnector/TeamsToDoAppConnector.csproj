@@ -201,13 +201,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Connector\Error.cshtml" />
     <Content Include="Views\Connector\Register.cshtml" />
-    <Content Include="Views\Connector\Setup.cshtml" />
+    <Content Include="Views\Connector\SetupAuth.cshtml" />
     <Content Include="Views\Task\Create.cshtml" />
     <Content Include="Views\Task\Detail.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="TeamsAppPackages\manifest.json" />
     <Content Include="Views\Connector\SimpleEnd.cshtml" />
     <Content Include="Views\Connector\SimpleStart.cshtml" />
+    <Content Include="Views\Connector\Setup.cshtml" />
+    <Content Include="Views\Connector\MainSetup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

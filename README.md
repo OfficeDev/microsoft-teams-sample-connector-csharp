@@ -55,7 +55,7 @@ The sample shows a simple implementation of a connector registration implementat
    1. Minimize the ngrok Command Prompt window. It is no longer referenced in these instructions, but it must remain running.
 1. Register a new connector in the [Connector Developer Portal](https://outlook.office.com/connectors/home/login/#/new)
    1. Fill in all the basic details such as name, logo, descriptions etc. for the new connector.
-   1. For the configuration page, you'll use our sample code's setup endpoint: `https://[BASE_URI]/connector/setup`
+   1. For the configuration page, you'll use our sample code's setup endpoint: `https://[BASE_URI]/connector/MainSetup`
    1. For Valid domains, make enter your domain's http or https URL, e.g. XXXXXXXX.ngrok.io.
    1. Enable the action on connector card by selecting the Yes radio button and enter the update endpoint: `https://[BASE_URI]/Task/Update`
    1. Click on Save. After the save completes, you will see your connector id.
@@ -89,14 +89,9 @@ To be able to use an identity provider, first you have to register your applicat
 
 ## Setting up Authentication on Configuration page 
 
-1. Set the Config URL in Setup.cshtml
+1. Set the Base URL in web.config, for example : https://contoso.ngrok.io
 
-```javascript
-  microsoftTeams.settings.setSettings({
-            entityId: eventType,
-            contentUrl: "***YOUR CONFIG URL HERE***",
-            configName: eventType
-        });
+```<add key="BaseUrl" value="***Your Domain URL***"/>
 ```
 
 2. Enter your AppId in the `client_id` property in SimpleStart.html page 
