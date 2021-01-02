@@ -13,11 +13,30 @@ namespace TeamsToDoAppConnector.Controllers
     /// </summary>
     public class ConnectorController : Controller
     {
+
         /// <summary>
-        /// This is the landing page when user tries to setup the connector.
-        /// You could implement login here, if required.
+        /// This is main landing page which allows user to choose between simple config vs auth config page.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ViewResult MainSetup()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// This is the landing page which shows simple configuration without auth. Check SetupAuth() for login implementation.
         /// </summary>
         public ViewResult Setup()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// This is the landing page shows implementation of login.
+        /// </summary>
+        [HttpGet]
+        public ViewResult SetupAuth()
         {
             return View();
         }
@@ -62,37 +81,6 @@ namespace TeamsToDoAppConnector.Controllers
         // Error page
         public ActionResult Error()
         {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult SimpleStart()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult SimpleEnd()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ViewResult SetupAuth()
-        {
-            return View();
-        }
-
-        [HttpGet]
-
-        public ViewResult MainSetup() {
-
             return View();
         }
     }
