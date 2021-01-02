@@ -4,7 +4,7 @@
         <div id="primary" style="display: none">
             <h2 style="display:inline-block">Hello</h2>
             <div id="logoutDiv" style="display: inline-block">
-                <button onclick="logoutV1()" style="margin-left: 40px;">Sign Out</button>
+                <button onclick="logOut()" style="margin-left: 40px;">Sign Out</button>
             </div>
         </div>
 
@@ -34,14 +34,6 @@
 
 <script type="text/javascript">
     microsoftTeams.initialize();
-
-    function onClick() {
-        microsoftTeams.settings.setValidityState(true);
-    }
-
-    function logoutV1() {
-        signOut(window.location.origin + "/Authentication/Logout");
-    }
 
     microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
         var radios = document.getElementsByName('notificationType');
@@ -87,6 +79,14 @@
         var removeCalled = true;
     });
 
+    function onClick() {
+        // Enable the save button.
+        microsoftTeams.settings.setValidityState(true);
+    }
+
+    function initiateLogin() {
+        login(window.location.origin + "/Authentication/SimpleStart");
+    }
 
     function login(url) {
         hideProfileAndError();
@@ -104,7 +104,6 @@
                 let tokenResult = JSON.parse(data);
                 getUserProfile(tokenResult.accessToken);
 
-
                 $("#primary").show();
                 $("#divConfig").show();
                 $("#divLogin").hide();
@@ -118,33 +117,15 @@
         });
     }
 
-    function signOut(url) {
+    function logOut() {
         hideProfileAndError();
 
-        microsoftTeams.authentication.authenticate({
-            url: url,
-            width: 600,
-            height: 535,
-            successCallback: function (result) {
-                console.log("Logout succeeded: " + result);
+        // Clear the session.
+        localStorage.clear();
 
-                let data = localStorage.getItem(result);
-                localStorage.removeItem(result);
-
-                $("#primary").hide();
-                $("#divConfig").hide();
-                $("#divLogin").show();
-
-                //let tokenResult = JSON.parse(data);
-                //showIdTokenAndClaims(tokenResult.idToken);
-                //getUserProfile(tokenResult.accessToken);
-            },
-            failureCallback: function (reason) {
-                console.log("Login failed: " + reason);
-                handleAuthError(reason);
-            }
-        });
-
+        $("#primary").hide();
+        $("#divConfig").hide();
+        $("#divLogin").show();
     }
 
     function getUserProfile(accessToken) {
@@ -162,10 +143,6 @@
                 $("#divProfile").hide();
             },
         });
-    }
-
-    function initiateLogin() {
-        login(window.location.origin + "/Authentication/SimpleStart");
     }
 
     // Show error information

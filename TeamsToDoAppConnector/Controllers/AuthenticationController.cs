@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace TeamsToDoAppConnector.Controllers
 {
+    /// <summary>
+    /// Represents the controller responsible for start and end page of authentication.
+    /// </summary>
     public class AuthenticationController : Controller
     {
-       
-
         [HttpGet]
         public ActionResult SimpleStart()
         {
@@ -21,12 +18,5 @@ namespace TeamsToDoAppConnector.Controllers
         {
             return View();
         }
-
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            return View();
-        }
-
     }
 }
