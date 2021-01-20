@@ -13,8 +13,8 @@
     </section>
 </div>
 
-<script src="@("https://unpkg.com/@microsoft/teams-js@1.3.3/dist/MicrosoftTeams.min.js")"></script>
-<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js" integrity="sha384-mhp2E+BLMiZLe7rDIzj19WjgXJeI32NkPvrvvZBrMi5IvWup/1NUfS5xuYN5S3VT" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha384-VC7EHu0lDzZyFfmjTPJq+DFyIn8TUGAJbEtpXquazFVr00Q/OOx//RjiZ9yU9+9m" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 
@@ -35,7 +35,8 @@
 
             microsoftTeams.settings.setSettings({
                  entityId: eventType,
-                    contentUrl: "@(TeamsToDoAppConnector.Utils.AppSettings.BaseUrl)/Connector/Setup",
+                 contentUrl: "@(TeamsToDoAppConnector.Utils.AppSettings.BaseUrl)/Connector/Setup",
+                 removeUrl: "@(TeamsToDoAppConnector.Utils.AppSettings.BaseUrl)/connector/Setup",
                  configName: eventType
                 });
 
@@ -63,6 +64,8 @@
         });
 
         microsoftTeams.settings.registerOnRemoveHandler(function (removeEvent) {
+            // This is called when you click on Remove connector. 
+            // This handler should be part of removeUrl page specified in microsoftTeams.settings.setSettings().
             var removeCalled = true;
         });
 

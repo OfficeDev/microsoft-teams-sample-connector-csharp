@@ -3,17 +3,17 @@
 namespace TeamsToDoAppConnector.Utils
 {
     /// <summary>
-    /// Represents a class to strore settings for easy access.
+    /// Represents a class to stores settings for easy access.
     /// </summary>
     public static class AppSettings
     {
-        public static readonly string BaseUrl;
-        public static readonly string ConnectorAppId;
+        public static string BaseUrl { get; set; }
+        public static string ClientAppId { get; set; }
 
         static AppSettings()
         {
             BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-            ConnectorAppId = ConfigurationManager.AppSettings["ConnectorAppId"];
+            ClientAppId = ConfigurationManager.AppSettings["ClientAppId"];
         }
     }
 }

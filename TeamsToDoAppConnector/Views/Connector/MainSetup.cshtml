@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h2>Configuration Setup:</h2>
+    <div class="col-md-8">
+        <section id="configSection">
+            <form id="configForm">
+                <input type="radio" name="selectionType" value="Create">Configuration Without Authentication
+                <br>
+                <br>
+                <input type="radio" name="selectionType" value="Update">Configuration With Authentication
+            </form>
+        </section>
+        <button style="margin-top: 20px" id="select_button" onclick="redirect()">Select</button>
+    </div>
+
+    <script type="text/javascript">
+
+        function redirect() {
+
+            var radios = document.getElementsByName('selectionType');
+
+            var routeUrl = '';
+
+        if (radios[0].checked) {
+            routeUrl = "@(TeamsToDoAppConnector.Utils.AppSettings.BaseUrl)/Connector/Setup";
+        } else {
+            routeUrl = "@(TeamsToDoAppConnector.Utils.AppSettings.BaseUrl)/Connector/SetupAuth";
+            }
+
+            window.location.href = routeUrl;
+        }
+    </script>
+
+</body>
+</html>
