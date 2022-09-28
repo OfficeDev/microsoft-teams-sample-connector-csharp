@@ -12,6 +12,8 @@ extensions:
   createdDate: 10/10/2020 10:21:42 PM
 ---
 
+Note: This repo is archieved and move to this new location: https://github.com/OfficeDev/Microsoft-Teams-Samples/tree/main/samples/connector-todo-notification/csharp
+
 # Microsoft Teams Sample Connector in .NET/C#
 
 This is an MVC sample task management application generated using the [ASP.NET Web Application (.NET Framework)](https://docs.microsoft.com/aspnet/mvc/overview/getting-started/introduction/getting-started#creating-your-first-application) template. The majority of the code is related to either basic MVC configuration or Task management.
