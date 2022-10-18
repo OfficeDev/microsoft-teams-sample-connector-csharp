@@ -25,11 +25,11 @@ The main connector code is found here:
 This application simulates a real task management system and allows users to create and view tasks. The content is randomly generated to simulate how notification can be sent into Microsoft Teams channel using connector.
 
 **For more information on developing apps for Microsoft Teams, please review the Microsoft Teams [developer documentation](https://docs.microsoft.com/microsoftteams/platform/overview).**
-n 
+
 ## Prerequisites
 The minimum prerequisites to run this sample are:
 * The latest update of Visual Studio. You can download the community version [here](http://www.visualstudio.com) for free.
-* An Office 365 account with access to Microsoft Teams, with [sideloading enabled](https://msdn.microsoft.com/en-us/microsoft-teams/setup).
+* An Office 365 account with access to Microsoft Teams, with [sideloading enabled](https://docs.microsoft.com/microsoftteams/platform/concepts/deploy-and-publish/apps-upload).
 * If you want to run this code locally, use a tunnelling service. These instructions assume you are using [ngrok](https://ngrok.com/). 
 
 ### How to see the connector working in Microsoft Teams
@@ -108,7 +108,7 @@ App structure
     - The Authenication/SimpleStart view merely creates a valid AAD authorization endpoint and redirects to that AAD consent page.
     - Once the user has consented to the permissions, AAD redirects the user back to `Authenication/SimpleEnd`. This view is responsible for returning the results back to the start view by calling the notifySuccess API.
     - This workflow is only necessary if you want authorization to use additional Graph APIs. Most apps will find this flow unnecessary if all they want to do is authenticate the user.
-    - This workflow is the same as our standard [web-based authentication flow](https://docs.microsoft.com/en-us/microsoftteams/platform/tabs/how-to/authentication/auth-tab-aad#navigate-to-the-authorization-page-from-your-popup-page) that we've always had in Teams before we had single sign-on support. It just so happens that it's a great way to request additional permissions from the user, so it's left in this sample as an illustration of what that flow looks like.
+    - This workflow is the same as our standard [web-based authentication flow](https://docs.microsoft.com/microsoftteams/platform/tabs/how-to/authentication/auth-tab-aad#navigate-to-the-authorization-page-from-your-popup-page) that we've always had in Teams before we had single sign-on support. It just so happens that it's a great way to request additional permissions from the user, so it's left in this sample as an illustration of what that flow looks like.
 1. `/Tasks` controller.
      1. `/Tasks/Index` renders the tasks list page.
      1. `/Tasks/Create` allows users to create new task, which triggers notification to all the webhooks registered for create event.
@@ -116,7 +116,7 @@ App structure
 
 ## More Information
 For more information about getting started with Teams, please review the following resources:
-- Review [Getting Started with Authentications for Tabs](https://docs.microsoft.com/en-us/microsoftteams/platform/tabs/how-to/authentication/auth-tab-aad)
-- Review [Getting Started with Teams](https://msdn.microsoft.com/en-us/microsoft-teams/setup)
+- Review [Getting Started with Authentications for Tabs](https://docs.microsoft.com/microsoftteams/platform/tabs/how-to/authentication/auth-tab-aad)
+- Review [Get started with Microsoft Teams](https://docs.microsoft.com/microsoftteams/platform/get-started/get-started-overview)
 
 
